@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ user_info.username }} {% endblock title %}
+
+{% block content %}
+<div class="container pt-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <h3>TeachTrack Schedule</h3>
+            <img class="img-fluid rounded-5" width="100" src="{% static 'assets/tt-logo.png' %}" alt="logo of teachtrack application">
+            <p class="text-muted my-3"> {{ greeting }} {{ user_info.first_name }} {{ user_info.initial }} {{ user_info.last_name }}  </p>
+            <div class="border my-3 border-3 border-black rounded rounded-5 d-flex justify-content-center align-items-center ">
+                <h2 class="text-muted">
+                    REAL DATA
+                </h2>
+                
+            </div>
+            <div class="border border-3 border-black rounded rounded-5 d-flex justify-content-center align-items-center ">
+                <h2 class="text-muted">
+                    REAL DATA
+                </h2>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center ">
+        <div class="col text-center py-3 d-flex flex-lg-row flex-column justify-content-center  align-items-center gap-2 ">
+            <a class="text-decoration-none btn btn-secondary " href="{% url 'add_schedule' %}">Add Schedule</a>
+            <a class="text-decoration-none btn btn-secondary " href="{% url 'today_schedule' %}">Today's Schedule</a>
+            <a class="text-decoration-none btn btn-secondary " href="{% url 'whole_schedule' %}">Whole Schedule</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

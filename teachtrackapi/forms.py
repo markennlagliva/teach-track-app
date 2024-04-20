@@ -2,6 +2,8 @@ from django import forms
 from teachtrack_auth.models import CustomUser, Schedule
 from django.contrib.auth.forms import UserCreationForm
 
+# Custom Widget
+from .widget import TimePickerInput
 
 class CustomUserCreateForm(UserCreationForm):
     choices = (
@@ -41,7 +43,28 @@ class CustomUserCreateForm(UserCreationForm):
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
 
-class Schedule(forms.ModelForm):
+
+    # my_time_field = forms.TimeField(widget=TimePickerInput)
+
+class ScheduleCreateForm(forms.ModelForm):
+    day_choices = (
+        ('Monday', 'Monday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
+        ('Thursday', 'Thursday'),
+        ('Friday', 'Friday'),
+        ('Saturday', 'Saturday'),
+        ('Sunday', 'Sunday'),
+    )
+
+    subjectName = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Subject Name'}))
+    className = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Class Name'}))
+    dayofWeek = forms.ChoiceField(choices=day_choices, widget=forms.RadioSelect)
+    startTime = forms.TimeField(widget=TimePickerInput(attrs={'class': 'form-control', 'placeholder': 'e.g. 8:00 AM'}), label='Start Time')
+    endTime = forms.TimeField(widget=TimePickerInput(attrs={'class': 'form-control', 'placeholder': 'e.g. 9:30 PM'}), label='End Time')
+
     class Meta:
         model = Schedule
-        fields = '__all__'
+        fields = ('subjectName', 'className', 'dayofWeek', 'startTime', 'endTime')
+
+   
