@@ -1,0 +1,4 @@
+Deployment:
+
+--> Delete module mysqlclient in pipenv and Pipfile.lock
+--> Use Psycopg2 

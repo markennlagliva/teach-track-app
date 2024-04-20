@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} TeachTrack - Signup {% endblock title %}
+
+{% block content %}
+<div class="container pt-5 my-5">
+    <div class="row justify-content-center ">
+        <div class="col-lg-6 text-center ">
+            <h3>TeachTrack</h3>
+            <img class="img-fluid rounded-5" width="100" src="{% static 'assets/tt-logo.png' %}" alt="logo of teachtrack application">
+        </div>
+    </div>
+
+    <div class="row justify-content-center py-3">
+        <div class="col-lg-6">
+            {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {{ field.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}       
+
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+        </div>
+    </div>
+    
+    <div class="row justify-content-center ">
+        <div class="col-lg-6 pt-2">
+            <form method="POST" action="{% url 'signup_user' %}">
+                {% csrf_token %}
+               {{form.as_p}}
+                
+                <button type="submit" class="btn btn-sm btn-secondary">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
